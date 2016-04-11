@@ -7,14 +7,24 @@
 
 # Java class files
 *.class
+.classpath
 
 # Generated files
 bin/
 gen/
+out
+tests
 
 # Gradle files
 .gradle/
 build/
+
+# Project configuration file
+project.properties
+.project
+.settings
+.idea/
+*.iml
 
 # Local configuration file (sdk path, etc)
 local.properties
