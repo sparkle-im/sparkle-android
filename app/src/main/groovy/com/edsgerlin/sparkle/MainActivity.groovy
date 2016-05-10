@@ -1,8 +1,6 @@
 package com.edsgerlin.sparkle;
 
 import android.app.Activity;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -25,10 +23,14 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setActionBar(toolbar);
         messageListView = (ListView) findViewById(R.id.message_list_view);
         messageListView.setAdapter(new MessageListAdapter(this, new ArrayList<SparkleMessage>() {{
-            add(new SparkleMessage("Sender", "Message"));
+            add(new SparkleMessage("Sender0", "Message0"));
+            add(new SparkleMessage("Sender1", "Message1"));
+            add(new SparkleMessage("Sender2", "Message2"));
+            add(new SparkleMessage("Sender3", "Message3"));
         }}));
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

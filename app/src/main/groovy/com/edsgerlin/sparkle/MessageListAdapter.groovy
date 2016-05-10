@@ -2,7 +2,7 @@ package com.edsgerlin.sparkle;
 
 import android.content.Context;
 import android.database.DataSetObserver;
-import android.databinding.ObservableArrayList;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
@@ -19,9 +19,12 @@ public class MessageListAdapter implements ListAdapter {
     final Set<DataSetObserver> observers = new HashSet<>();
     final ArrayList<SparkleMessage> messages = new ArrayList<>();
     final Context context;
+    final LayoutInflater inflater;
 
     public MessageListAdapter(Context context, ArrayList<SparkleMessage> messages) {
         this.context = context;
+        this.inflater = (LayoutInflater)context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.messages.addAll(messages);
     }
 
@@ -67,15 +70,14 @@ public class MessageListAdapter implements ListAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView view;
-        if (convertView != null) {
-            view = (TextView) convertView;
-        }
-        else {
-            view = new TextView(this.context);
-        }
-        view.setText((CharSequence) getItem(position).toString());
-        return null;
+        final View view = convertView == null ?
+                inflater.inflate(R.layout.message_view, null) :
+                convertView;
+        ((TextView)view.findViewById(R.id.message_sender_textview))
+                .setText(getItem(position).getSender());
+        ((TextView)view.findViewById(R.id.message_content_textview))
+                .setText(getItem(position).getMessage());
+        return view;
     }
 
     @Override

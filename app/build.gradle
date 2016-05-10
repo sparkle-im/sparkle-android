@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'groovyx.grooid.groovy-android'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
@@ -17,9 +17,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
-        enabled = true
+}
+androidGroovy {
+    options {
+        configure(groovyOptions) {
+            encoding = 'UTF-8'
+            forkOptions.jvmArgs = ['-noverify'] // maybe necessary if you use Google Play Services
+        }
+        //sourceCompatibility = '1.7' // as of 0.3.9 these are automatically set based off the android plugin's
+        targetCompatibility = '1.7'
     }
+    skipJavaC = true
 }
 
 dependencies {
@@ -27,4 +35,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:design:23.3.0'
+    compile 'org.codehaus.groovy:groovy:2.4.6:grooid'
 }
